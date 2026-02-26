@@ -10,6 +10,30 @@ class Filessh < Formula
   def install
     ENV["VERGEN_IDEMPOTENT"] = "1"
     system "cargo", "install", *std_cargo_args(path: ".")
+
+    man1.install "man/filessh.1"
+    man5.install "man/filessh.5"
+
+    completion_home = buildpath/"completion-home"
+    ENV["HOME"] = completion_home
+
+    system bin/"filessh", "install-completions", "bash"
+    bash_completion.install completion_candidate(completion_home, "filessh")
+
+    system bin/"filessh", "install-completions", "fish"
+    fish_completion.install completion_candidate(completion_home, "filessh.fish")
+  end
+
+  def completion_candidate(completion_home, file)
+    mac_path = completion_home/"Library/Application Support"
+    linux_path = completion_home/".local/share"
+
+    [
+      mac_path/"bash-completion/completions"/file,
+      mac_path/"fish/vendor_completions.d"/file,
+      linux_path/"bash-completion/completions"/file,
+      linux_path/"fish/vendor_completions.d"/file,
+    ].find(&:exist?)
   end
 
   test do
