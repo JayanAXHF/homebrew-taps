@@ -1,8 +1,7 @@
 class Gitv < Formula
   desc "Terminal-based GitHub client built with Rust and Ratatui"
   homepage "https://github.com/JayanAXHF/gitv"
-  url "https://github.com"
-  version "0.4.2"
+  url "https://github.com/JayanAXHF/gitv/archive/refs/tags/gitv-tui-v0.4.2.tar.gz"
   sha256 "d1f0c826e56c8595ecfc6e7c8be8461ea9a9cced3ad1b0abd61ae60a565a0398"
   license any_of: ["Unlicense", "MIT"]
 
